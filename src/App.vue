@@ -1,17 +1,7 @@
 <template>
   <div class="container">
-    <transition name="fade">
-      <div v-if="hover" class="preview">
-        <div class="sender-info">
-          <div class="avata-preview">
-            <img class="avata-preview-img" src="./assets/avata.svg" />
-          </div>
-          <span class="name">별이</span>
-          <span class="time">7:46 PM</span>
-        </div>
-        <div class="message-content">혹시 궁금한거 있어?</div>
-        <input class="reply" />
-      </div>
+    <transition name="preview">
+      <PreviewMessage v-if="hover" msg="혹시 궁금한거 있어?" hover="hover" />
     </transition>
     <div
       @mouseover="
@@ -30,9 +20,10 @@
 </template>
 
 <script>
+import PreviewMessage from "./components/PreviewMessage.vue";
 export default {
   name: "App",
-  components: {},
+  components: { PreviewMessage },
   data() {
     return {
       newNoti: true,
