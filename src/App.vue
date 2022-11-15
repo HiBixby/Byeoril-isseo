@@ -1,9 +1,31 @@
 <template>
-  <div class="box">
-    <div class="ping"></div>
-    <div class="new">
+  <div class="container">
+    <transition name="fade">
+      <div v-if="hover" class="preview">
+        <div class="sender-info">
+          <div class="avata-preview">
+            <img class="avata-preview-img" src="./assets/avata.svg" />
+          </div>
+          <span class="name">별이</span>
+          <span class="time">7:46 PM</span>
+        </div>
+        <div class="message-content">혹시 궁금한거 있어?</div>
+        <input class="reply" />
+      </div>
+    </transition>
+    <div
+      @mouseover="
+        hover = true;
+        newNoti = false;
+      "
+      class="box"
+    >
+      <div v-if="newNoti">
+        <div class="ping"></div>
+        <div class="new"></div>
+      </div>
+      <img class="avata" src="./assets/avata.svg" alt="별이" />
     </div>
-    <img class="avata" src="./assets/avata.svg" alt="별이" />
   </div>
 </template>
 
@@ -11,6 +33,12 @@
 export default {
   name: "App",
   components: {},
+  data() {
+    return {
+      newNoti: true,
+      hover: false,
+    };
+  },
 };
 </script>
 
@@ -26,6 +54,65 @@ export default {
   color: #2c3e50;
   height: 100%;
 }
+.container {
+  position: fixed;
+  bottom: 3rem;
+  right: 3rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+.sender-info {
+  display: flex;
+  align-items: center;
+  padding: 0.621rem 0.644rem 0rem;
+}
+.avata-preview {
+  width: 1.759rem;
+  height: 1.759rem;
+  background-color: #f2f1ed;
+  border-radius: 11.5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.avata-preview img {
+  width: 1.109rem;
+  height: 1.063rem;
+}
+.name {
+  font-size: 0.711rem;
+  font-weight: 600;
+  padding: 0 0.452rem 0 0.746rem;
+}
+.time {
+  color: #989898;
+  font-size: 0.711rem;
+  font-weight: 500;
+}
+.message-content {
+  font-size: 0.918rem;
+  font-weight: 600;
+  text-align: left;
+  line-height: 1.2;
+  color: #000;
+  padding: 0.515rem 0.82rem 0.442rem;
+}
+.reply {
+  border: none;
+  background-color: #ffe795;
+  width: 93.7%;
+  height: 2.62rem;
+  border-radius: 11.5px;
+  caret-color: black;
+  font-size: 1.275rem;
+  font-weight: 600;
+  padding: 0 0.897rem;
+  box-sizing: border-box;
+}
+.reply:focus {
+  outline: none;
+}
 .box {
   background-color: white;
   width: 4.5rem;
@@ -34,16 +121,16 @@ export default {
   border-radius: 25px;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  bottom: 3rem;
-  right: 3rem;
-  box-shadow:  0 0 1px rgb(0 0 0 / 10%), 0 2px 5px rgb(0 0 0 / 10%)
+  box-shadow: 0 0 1px rgb(0 0 0 / 10%), 0 2px 5px rgb(0 0 0 / 10%);
+  position: relative;
+  bottom: 0;
+  right: 0;
 }
-.box:hover{
+.box:hover {
   cursor: pointer;
 }
 .new {
-  background-image:url('./assets/bang.svg');
+  background-image: url("./assets/bang.svg");
   background-size: 0.217rem 0.873rem;
   background-repeat: no-repeat;
   background-position: center;
@@ -57,9 +144,9 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  color:white;
+  color: white;
 }
-.ping{
+.ping {
   position: absolute;
   width: 1.835rem;
   height: 1.835rem;
@@ -70,19 +157,28 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  color:white;
+  color: white;
   opacity: 75%;
-	animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
-
+  animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 .avata {
   padding: 1rem;
 }
 
 @keyframes ping {
-  75%, 100% {
+  75%,
+  100% {
     transform: scale(1.5);
     opacity: 0;
   }
+}
+.preview {
+  position: relative;
+  bottom: 0.715rem;
+  width: 23.12rem;
+  height: 7.815rem;
+  border-radius: 21px;
+  background-color: white;
+  box-shadow: 0 0 1px rgb(0 0 0 / 10%), 0 2px 5px rgb(0 0 0 / 10%);
 }
 </style>
