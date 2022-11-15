@@ -39,6 +39,9 @@ export default {
   right: 3rem;
   box-shadow:  0 0 1px rgb(0 0 0 / 10%), 0 2px 5px rgb(0 0 0 / 10%)
 }
+.box:hover{
+  cursor: pointer;
+}
 .new {
   background-image:url('./assets/bang.svg');
   background-size: 0.217rem 0.873rem;
