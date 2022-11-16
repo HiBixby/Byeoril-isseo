@@ -1,27 +1,30 @@
 <template>
-  <div v-if="isPressed" class="container">
-    <transition name="preview">
-      <PreviewMessage
-        v-if="hover"
-        msg="혹시 궁금한거 있어?"
-        hover="hover"
-        @ReplyFromChild="OnReceivePreviewReply"
-      />
-    </transition>
-    <div
-      @mouseover="
-        hover = true;
-        newNoti = false;
-      "
-      class="box"
-    >
-      <div v-if="newNoti">
-        <div class="ping"></div>
-        <div class="new"></div>
+  <div class="description">Ctrl+Q를 눌러보세요!</div>
+  <transition name="fade">
+    <div v-if="isPressed" class="container">
+      <transition name="fade">
+        <PreviewMessage
+          v-if="hover"
+          msg="혹시 궁금한거 있어?"
+          hover="hover"
+          @ReplyFromChild="OnReceivePreviewReply"
+        />
+      </transition>
+      <div
+        @mouseover="
+          hover = true;
+          newNoti = false;
+        "
+        class="box"
+      >
+        <div v-if="newNoti">
+          <div class="ping"></div>
+          <div class="new"></div>
+        </div>
+        <img class="avata" src="./assets/avata.svg" alt="별이" />
       </div>
-      <img class="avata" src="./assets/avata.svg" alt="별이" />
     </div>
-  </div>
+  </transition>
 </template>
 
 <script>
@@ -43,8 +46,6 @@ export default {
       this.replyMsg = message;
     },
   },
-  computed: {},
-  created() {},
   mounted() {
     window.addEventListener("keydown", (event) => {
       if (event.key === "q" && event.ctrlKey === true) {
@@ -194,5 +195,14 @@ export default {
   border-radius: 21px;
   background-color: white;
   box-shadow: 0 0 1px rgb(0 0 0 / 10%), 0 2px 5px rgb(0 0 0 / 10%);
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
