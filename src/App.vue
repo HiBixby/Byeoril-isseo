@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div v-if="isPressed" class="container">
     <transition name="preview">
       <PreviewMessage
         v-if="hover"
@@ -34,6 +34,7 @@ export default {
       newNoti: true,
       hover: false,
       replyMsg: null,
+      isPressed: false,
     };
   },
   methods: {
@@ -41,6 +42,16 @@ export default {
       this.hover = false;
       this.replyMsg = message;
     },
+  },
+  computed: {},
+  created() {},
+  mounted() {
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "q" && event.ctrlKey === true) {
+        console.log("단축키 눌림", event.key, event.ctrlKey);
+        this.isPressed = true;
+      }
+    });
   },
 };
 </script>
