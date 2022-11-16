@@ -1,15 +1,17 @@
 <template>
-    <div class="preview">
-      <div class="sender-info">
-        <div class="avata-preview">
-          <img class="avata-preview-img" src="../assets/avata.svg" />
-        </div>
-        <span class="name">별이</span>
-        <span class="time">{{time}}</span>
+  <div class="preview">
+    <div class="sender-info">
+      <div class="avata-preview">
+        <img class="avata-preview-img" src="../assets/avata.svg" />
       </div>
-      <div class="message-content">{{ msg }}</div>
-      <input class="reply" />
+      <span class="name">별이</span>
+      <span class="time">{{ time }}</span>
     </div>
+    <div class="message-content">{{ msg }}</div>
+    <form @submit.prevent="onSubmitReply">
+      <input class="reply" v-model="replyMsg" />
+    </form>
+  </div>
 </template>
 
 <script>
@@ -20,11 +22,21 @@ export default {
     msg: String,
     hover: Boolean,
   },
-  data(){
-    return{
-        time:new Date().toLocaleTimeString('en-US',{hour: '2-digit', minute:'2-digit'}),
-    }
-  }
+  data() {
+    return {
+      time: new Date().toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+      replyMsg: null,
+    };
+  },
+  methods: {
+    onSubmitReply() {
+      console.log(this.replyMsg);
+      this.$emit("ReplyFromChild", this.replyMsg);
+    },
+  },
 };
 </script>
 

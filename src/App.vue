@@ -1,7 +1,12 @@
 <template>
   <div class="container">
     <transition name="preview">
-      <PreviewMessage v-if="hover" msg="혹시 궁금한거 있어?" hover="hover" />
+      <PreviewMessage
+        v-if="hover"
+        msg="혹시 궁금한거 있어?"
+        hover="hover"
+        @ReplyFromChild="OnReceivePreviewReply"
+      />
     </transition>
     <div
       @mouseover="
@@ -28,7 +33,14 @@ export default {
     return {
       newNoti: true,
       hover: false,
+      replyMsg: null,
     };
+  },
+  methods: {
+    OnReceivePreviewReply(message) {
+      this.hover = false;
+      this.replyMsg = message;
+    },
   },
 };
 </script>
