@@ -4,7 +4,7 @@
     <div v-if="isPressed" class="container">
       <transition name="fade">
         <PreviewMessage
-          v-if="hover"
+          v-if="hover && !replyMsg"
           msg="혹시 궁금한거 있어?"
           hover="hover"
           @ReplyFromChild="OnReceivePreviewReply"
