@@ -80,8 +80,8 @@ export default {
   font-weight: 600;
   text-align: left;
   line-height: 1.2;
-  color: #000;
   padding: 0.515rem 0.82rem 0.442rem;
+  color:inherit;
 }
 .reply {
   border: none;
@@ -89,8 +89,9 @@ export default {
   width: 93.7%;
   height: 2.62rem;
   border-radius: 11.5px;
-  caret-color: black;
-  font-size: 1.275rem;
+  color: inherit;
+  font-family: inherit;
+  font-size: 1rem;
   font-weight: 600;
   padding: 0 0.897rem;
   box-sizing: border-box;
