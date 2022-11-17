@@ -1,12 +1,12 @@
 <template>
   <div class="description">Ctrl+Q를 눌러보세요!</div>
   <transition name="fade">
-    <div v-if="isPressed" class="container">
+    <div v-if="isHotkeyPressed" class="container">
       <transition name="fade">
         <PreviewMessage
-          v-if="hover && !replyMsg"
-          msg="혹시 궁금한거 있어?"
-          v-bind:hover="hover"
+          v-if="isPreview"
+          v-bind:msg="conversation[conversation.length - 1].msg"
+          v-bind:time="conversation[conversation.length - 1].time"
           @ReplyFromChild="OnReceivePreviewReply"
         />
       </transition>
@@ -14,15 +14,20 @@
         <ChatingRoom
           v-if="isChatingRoom"
           v-bind:conversation="conversation"
+          v-bind:isChatingRoom="isChatingRoom"
+          @CloseChatingRoom="CloseChatingRoom"
           @ReplyFromChild="OnReceivePreviewReply"
         >
         </ChatingRoom>
       </transition>
       <div
         @mouseover="
-          hover = true;
-          newNoti = false;
+          if (!replyMsg) {
+            isPreview = true;
+            newNoti = false;
+          }
         "
+        @click="OnClickBox()"
         class="box"
       >
         <div v-if="newNoti">
@@ -44,11 +49,11 @@ export default {
   data() {
     return {
       newNoti: true,
-      hover: false,
+      isPreview: false,
       replyMsg: null,
-      isPressed: false,
+      isHotkeyPressed: false,
       conversation: [],
-      isChatingRoom: true,
+      isChatingRoom: false,
       response: {
         "오늘 점심 메뉴 추천 좀": ["돈가스"],
         다크모드: [
@@ -60,8 +65,12 @@ export default {
   },
   methods: {
     OnReceivePreviewReply(message) {
-      this.hover = false;
+      this.isPreview = false;
       this.replyMsg = message;
+      this.isChatingRoom = true;
+      this.OnReceiveReply(message);
+    },
+    OnReceiveReply(message) {
       this.conversation.push({
         sender: "me",
         msg: message,
@@ -84,12 +93,29 @@ export default {
       }
       console.log(this.conversation);
     },
+    OnClickBox() {
+      console.log("[Function] OnClickBox");
+      console.log(this.isPreview);
+      if (!this.isPreview) {
+        this.OpenChatingRoom();
+      }
+    },
+    OpenChatingRoom() {
+      this.isChatingRoom = true;
+    },
+    CloseChatingRoom() {
+      this.isChatingRoom = false;
+    },
   },
   mounted() {
     window.addEventListener("keydown", (event) => {
-      if (event.key === "q" && event.ctrlKey === true) {
+      if (
+        event.key === "q" &&
+        event.ctrlKey === true &&
+        !this.isHotkeyPressed
+      ) {
         console.log("단축키 눌림", event.key, event.ctrlKey);
-        this.isPressed = true;
+        this.isHotkeyPressed = true;
         this.conversation.push({
           sender: "byeoli",
           msg: "혹시 궁금한거 있어?",
