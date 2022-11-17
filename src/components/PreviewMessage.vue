@@ -5,7 +5,7 @@
         <img class="avata-preview-img" src="../assets/avata.svg" />
       </div>
       <span class="name">별이</span>
-      <span class="time">{{ time }}</span>
+      <span class="time">{{ getHoursAndMinutes }}</span>
     </div>
     <div class="message-content">{{ msg }}</div>
     <form @submit.prevent="onSubmitReply">
@@ -20,14 +20,11 @@ export default {
   props: {
     sender: String,
     msg: String,
-    hover: Boolean,
+    isPreview: Boolean,
+    time: null,
   },
   data() {
     return {
-      time: new Date().toLocaleTimeString("en-US", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
       replyMsg: null,
     };
   },
@@ -35,6 +32,14 @@ export default {
     onSubmitReply() {
       console.log(this.replyMsg);
       this.$emit("ReplyFromChild", this.replyMsg);
+    },
+  },
+  computed: {
+    getHoursAndMinutes() {
+      return this.time.toLocaleTimeString("en-US", {
+        hour: "2-digit",
+        minute: "2-digit",
+      });
     },
   },
 };
