@@ -123,6 +123,7 @@
     <div class="send-container">
       <form @submit.prevent="onSubmitReply">
         <textarea
+          @keydown.enter.exact.prevent="onSubmitReply"
           v-model="replyMsg"
           row="3"
           spellcheck="false"
