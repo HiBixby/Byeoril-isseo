@@ -11,7 +11,11 @@
         />
       </transition>
       <transition name="fade">
-        <ChatingRoom v-if="isChatingRoom" v-bind:conversation="conversation">
+        <ChatingRoom
+          v-if="isChatingRoom"
+          v-bind:conversation="conversation"
+          @ReplyFromChild="OnReceivePreviewReply"
+        >
         </ChatingRoom>
       </transition>
       <div
@@ -49,7 +53,7 @@ export default {
         "오늘 점심 메뉴 추천 좀": ["돈가스"],
         다크모드: [
           "아 다크모드! 우선 설정에 들어가봐~",
-          "거기서 '모양'탭 → 다크모드ON 하면 돼! 아니면 지금 내가 도와줄까? 스위치 한번 눌러봐~",
+          "거기서 '모양'탭 → 다크모드ON 하면 돼!\n아니면 지금 내가 도와줄까?\n스위치 한번 눌러봐~",
         ],
       },
     };
