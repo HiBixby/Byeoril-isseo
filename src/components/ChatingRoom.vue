@@ -1,14 +1,7 @@
 <template>
-  <div v-if="!close" class="chating-room">
+  <div class="chating-room">
     <div class="nav">
-      <button
-        @click="
-          () => {
-            close = true;
-          }
-        "
-        class="btn-back"
-      >
+      <button @click="CloseChatingRoom" class="btn-back">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="8.027"
@@ -65,7 +58,7 @@
           </g>
         </svg>
       </button>
-      <button class="btn-close">
+      <button @click="CloseChatingRoom" class="btn-close">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="13.267"
@@ -172,6 +165,9 @@ export default {
       console.log(this.replyMsg);
       this.$emit("ReplyFromChild", this.replyMsg);
       this.replyMsg = null;
+    },
+    CloseChatingRoom() {
+      this.$emit("CloseChatingRoom");
     },
   },
   computed: {},
