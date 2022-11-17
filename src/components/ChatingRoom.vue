@@ -236,7 +236,7 @@ button {
 .send-container textarea {
   display: block;
   width: 100%;
-  /* height: 3rem; */
+  height: 3.607rem;
   border: 0;
   outline: none;
   background: transparent;
@@ -249,17 +249,18 @@ button {
   resize: none;
 }
 .btn-send {
+  box-sizing: border-box;
   display: block;
   border: none;
   outline: none;
   background-color: #ffe795;
   border-radius: 14.332px;
   width: 16.1%;
-  height: 29.2%;
   font-size: 0.918rem;
   font-weight: 600;
   font-family: inherit;
-  margin: 0 3.5% 9.1% 0;
+  margin: 0 0.806rem 0.746rem 0;
+  padding: 0.355rem 0 0.374rem 0;
 }
 .sender-name {
   text-align: left;
