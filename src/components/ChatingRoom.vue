@@ -206,6 +206,9 @@ export default {
 button {
   cursor: pointer;
 }
+button:disabled {
+  cursor: default;
+}
 .nav-name {
   margin: 0 58.5% 0 8.8%;
   font-size: 0.918rem;
