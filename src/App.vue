@@ -1,5 +1,8 @@
 <template>
-  <div class="description">Ctrl+Q를 눌러보세요!</div>
+  <div class="description">
+    Ctrl+Q를 눌러보세요!<br /><span style="color: skyblue">다크모드</span>라고
+    입력해보세요!
+  </div>
   <transition name="fade">
     <div v-if="isHotkeyPressed" class="container">
       <transition name="fade">
