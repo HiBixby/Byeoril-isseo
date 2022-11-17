@@ -6,9 +6,13 @@
         <PreviewMessage
           v-if="hover && !replyMsg"
           msg="혹시 궁금한거 있어?"
-          hover="hover"
+          v-bind:hover="hover"
           @ReplyFromChild="OnReceivePreviewReply"
         />
+      </transition>
+      <transition name="fade">
+        <ChatingRoom v-if="isChatingRoom" v-bind:conversation="conversation">
+        </ChatingRoom>
       </transition>
       <div
         @mouseover="
@@ -29,21 +33,52 @@
 
 <script>
 import PreviewMessage from "./components/PreviewMessage.vue";
+import ChatingRoom from "./components/ChatingRoom.vue";
 export default {
   name: "App",
-  components: { PreviewMessage },
+  components: { PreviewMessage, ChatingRoom },
   data() {
     return {
       newNoti: true,
       hover: false,
       replyMsg: null,
       isPressed: false,
+      conversation: [],
+      isChatingRoom: true,
+      response: {
+        "오늘 점심 메뉴 추천 좀": ["돈가스"],
+        다크모드: [
+          "아 다크모드! 우선 설정에 들어가봐~",
+          "거기서 '모양'탭 → 다크모드ON 하면 돼! 아니면 지금 내가 도와줄까? 스위치 한번 눌러봐~",
+        ],
+      },
     };
   },
   methods: {
     OnReceivePreviewReply(message) {
       this.hover = false;
       this.replyMsg = message;
+      this.conversation.push({
+        sender: "me",
+        msg: message,
+        time: new Date(),
+      });
+      if (message in this.response) {
+        for (let i in this.response[message]) {
+          this.conversation.push({
+            sender: "byeoli",
+            msg: this.response[message][i],
+            time: new Date(),
+          });
+        }
+      } else {
+        this.conversation.push({
+          sender: "byeoli",
+          msg: "무슨 말이야?",
+          time: new Date(),
+        });
+      }
+      console.log(this.conversation);
     },
   },
   mounted() {
@@ -51,6 +86,11 @@ export default {
       if (event.key === "q" && event.ctrlKey === true) {
         console.log("단축키 눌림", event.key, event.ctrlKey);
         this.isPressed = true;
+        this.conversation.push({
+          sender: "byeoli",
+          msg: "혹시 궁금한거 있어?",
+          time: new Date(),
+        });
       }
     });
   },
@@ -68,6 +108,10 @@ export default {
   text-align: center;
   color: #2c3e50;
   height: 100%;
+}
+.description {
+  font-size: xx-large;
+  font-weight: 700;
 }
 .container {
   position: fixed;
