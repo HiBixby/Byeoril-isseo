@@ -122,7 +122,7 @@
     </div>
     <div class="send-container">
       <form>
-        <textarea></textarea>
+        <textarea row="3"></textarea>
         <button>전송</button>
       </form>
     </div>
@@ -235,6 +235,7 @@ button {
   height: 29.2%;
   font-size: 0.918rem;
   font-weight: 600;
+  font-family: inherit;
 }
 .sender-name {
   text-align: left;
