@@ -1,7 +1,14 @@
 <template>
-  <div class="chating-room">
+  <div v-if="!close" class="chating-room">
     <div class="nav">
-      <button class="btn-back">
+      <button
+        @click="
+          () => {
+            close = true;
+          }
+        "
+        class="btn-back"
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="8.027"
@@ -121,9 +128,16 @@
       </div>
     </div>
     <div class="send-container">
-      <form>
-        <textarea row="3"></textarea>
-        <button class="btn-send">전송</button>
+      <form @submit.prevent="onSubmitReply">
+        <textarea
+          v-model="replyMsg"
+          row="3"
+          spellcheck="false"
+          autofocus
+        ></textarea>
+        <button type="submit" class="btn-send" v-bind:disabled="!replyMsg">
+          전송
+        </button>
       </form>
     </div>
   </div>
@@ -136,7 +150,10 @@ export default {
     conversation: Array,
   },
   data() {
-    return {};
+    return {
+      close: false,
+      replyMsg: null,
+    };
   },
   methods: {
     isByeoli(message) {
@@ -150,6 +167,11 @@ export default {
         hour: "2-digit",
         minute: "2-digit",
       });
+    },
+    onSubmitReply() {
+      console.log(this.replyMsg);
+      this.$emit("ReplyFromChild", this.replyMsg);
+      this.replyMsg = null;
     },
   },
   computed: {},
@@ -218,12 +240,17 @@ button {
 .send-container textarea {
   display: block;
   width: 100%;
-  height: 3rem;
+  /* height: 3rem; */
   border: 0;
   outline: none;
   background: transparent;
   font-family: inherit;
   box-sizing: border-box;
+  font-size: 0.917rem;
+  font-weight: 600;
+  color: inherit;
+  padding: 0.833rem 3.6%;
+  resize: none;
 }
 .btn-send {
   display: block;
@@ -236,6 +263,7 @@ button {
   font-size: 0.918rem;
   font-weight: 600;
   font-family: inherit;
+  margin: 0 3.5% 9.1% 0;
 }
 .sender-name {
   text-align: left;
@@ -274,7 +302,8 @@ button {
   box-sizing: border-box;
   border-radius: 18px;
   width: auto;
-  max-width: 40%;
+  max-width: 70%;
+  text-align: left;
 }
 .byeoli.bubble {
   background-color: #f1f1f2;
@@ -286,6 +315,7 @@ button {
   padding: 0.5rem 0.9rem;
   font-size: 0.917rem;
   font-weight: 600;
+  white-space: pre;
 }
 .me.bubble {
   background-color: #ffe795;
