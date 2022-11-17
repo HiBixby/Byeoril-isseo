@@ -315,7 +315,8 @@ button {
   padding: 0.5rem 0.9rem;
   font-size: 0.917rem;
   font-weight: 600;
-  white-space: pre;
+  white-space: break-spaces;
+  overflow-wrap: break-word;
 }
 .me.bubble {
   background-color: #ffe795;
