@@ -123,7 +123,7 @@
     <div class="send-container">
       <form>
         <textarea row="3"></textarea>
-        <button>전송</button>
+        <button class="btn-send">전송</button>
       </form>
     </div>
   </div>
@@ -225,7 +225,7 @@ button {
   font-family: inherit;
   box-sizing: border-box;
 }
-.send-container button {
+.btn-send {
   display: block;
   border: none;
   outline: none;
