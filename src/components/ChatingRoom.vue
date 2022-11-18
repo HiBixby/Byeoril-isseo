@@ -163,9 +163,10 @@ export default {
       });
     },
     onSubmitReply() {
-      console.log(this.replyMsg);
-      this.$emit("ReplyFromChild", this.replyMsg);
-      this.replyMsg = null;
+      if (this.replyMsg) {
+        this.$emit("ReplyFromChild", this.replyMsg);
+        this.replyMsg = null;
+      }
     },
     CloseChatingRoom() {
       this.$emit("CloseChatingRoom");
@@ -181,16 +182,18 @@ export default {
   position: relative;
   bottom: 0.996rem;
   width: 23.151rem;
-  height: 27.054rem;
+  min-height: 27.054rem;
+  max-height: 45rem;
   border-radius: 32px;
   background-color: white;
   box-shadow: 0 0 1px rgb(0 0 0 / 10%), 0 2px 5px rgb(0 0 0 / 10%);
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  transition-delay: height 1s ease;
 }
 .nav {
-  height: 3.687rem;
+  min-height: 3.687rem;
   background-color: #f1f1f2;
   display: flex;
   align-items: center;
