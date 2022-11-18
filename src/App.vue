@@ -5,6 +5,7 @@
   </div>
   <transition name="fade">
     <div v-if="isHotkeyPressed" class="container">
+      <div v-if="isChatingRoom" class="avata-3D"></div>
       <transition name="fade">
         <PreviewMessage
           v-if="isPreview"
@@ -63,6 +64,7 @@ export default {
           "아 다크모드! 우선 설정에 들어가봐~",
           "거기서 '모양'탭 → 다크모드ON 하면 돼!\n아니면 지금 내가 도와줄까?\n스위치 한번 눌러봐~",
         ],
+        "다크모드 틀어줘": ["영화 다크모드 틀어줄게"],
       },
     };
   },
@@ -87,6 +89,11 @@ export default {
             time: new Date(),
           });
         }
+        this.conversation.push({
+          sender: "vote",
+          msg: "원하는 답이 아니예요",
+          time: new Date(),
+        });
       } else {
         this.conversation.push({
           sender: "byeoli",

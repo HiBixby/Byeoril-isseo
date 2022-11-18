@@ -106,16 +106,28 @@
         <div v-if="isByeoli(message)" class="sender-name">별이</div>
         <div
           class="message-line"
-          :class="{ byeoli: isByeoli(message), me: isMe(message) }"
+          :class="{
+            byeoli: isByeoli(message),
+            me: isMe(message),
+            vote: isVote(message),
+          }"
         >
           <div v-if="isByeoli(message)" class="avata">
             <img src="../assets/avata.svg" />
           </div>
           <div
             class="bubble"
-            :class="{ byeoli: isByeoli(message), me: isMe(message) }"
+            :class="{
+              byeoli: isByeoli(message),
+              me: isMe(message),
+              vote: isVote(message),
+            }"
           >
-            <div>{{ message.msg }}</div>
+            <div>
+              <img v-if="isVote(message)" src="../assets/icon_speach.svg" class="icon-speach" />{{
+                message.msg
+              }}
+            </div>
           </div>
         </div>
       </div>
@@ -155,6 +167,9 @@ export default {
     },
     isMe(message) {
       return message.sender === "me" ? true : false;
+    },
+    isVote(message) {
+      return message.sender === "vote" ? true : false;
     },
     getHoursAndMinutes(time) {
       return time.toLocaleTimeString("en-US", {
@@ -325,5 +340,19 @@ button:disabled {
 .me.bubble {
   background-color: #ffe795;
   margin-right: 3.1%;
+}
+.vote.bubble {
+  background-color: #f1f1f2;
+  border: solid 1px #3c7fdf;
+  cursor: pointer;
+  color: #3c7fdf;
+  margin-left: 2.439rem;
+}
+.vote.bubble div{
+  display: flex;
+  align-items: center;
+}
+.icon-speach{
+  padding-right: 0.22rem;
 }
 </style>
