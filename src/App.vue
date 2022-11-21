@@ -5,7 +5,6 @@
   </div>
   <transition name="fade">
     <div v-if="isHotkeyPressed" class="container">
-      <div v-if="isChatingRoom" class="avata-3D"></div>
       <transition name="fade">
         <PreviewMessage
           v-if="isPreview"
@@ -16,6 +15,7 @@
       </transition>
       <transition name="fade">
         <ChatingRoom
+          id="chating-room"
           v-if="isChatingRoom"
           v-bind:conversation="conversation"
           v-bind:isChatingRoom="isChatingRoom"
@@ -25,6 +25,7 @@
         </ChatingRoom>
       </transition>
       <div
+        v-if="!isChatingRoom"
         @mouseover="
           if (!replyMsg) {
             isPreview = true;
@@ -161,6 +162,13 @@ export default {
   flex-direction: column;
   align-items: flex-end;
 }
+.container.row {
+  flex-direction: row;
+}
+.avata-3D img {
+  width: 14.887rem;
+  height: 14.997rem;
+}
 .sender-info {
   display: flex;
   align-items: center;
@@ -175,9 +183,17 @@ export default {
   justify-content: center;
   align-items: center;
 }
-.avata-preview img {
-  width: 1.109rem;
-  height: 1.063rem;
+.avata-3D {
+  width: 13.04rem;
+  height: 13.04rem;
+  border-radius: 31px;
+  box-shadow: 0 0 1px rgb(0 0 0 / 10%), 0 2px 5px rgb(0 0 0 / 10%);
+  margin-right: 1.026rem;
+}
+.avata-3D img {
+  width: 11.23rem;
+  height: 11.23rem;
+  margin: 0.905rem 0 0.905rem 1.899rem;
 }
 .name {
   font-size: 0.711rem;
@@ -222,6 +238,7 @@ export default {
   align-items: center;
   box-shadow: 0 0 1px rgb(0 0 0 / 10%), 0 2px 5px rgb(0 0 0 / 10%);
   position: relative;
+  margin-top: 1rem;
   bottom: 0;
   right: 0;
 }
